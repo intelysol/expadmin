@@ -29,16 +29,16 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname,'public')))
 app.use(homeRoutes.routes)
 
-app.get('/mysql',(req,res)=>{
-    let sql="Select * From Users"
-    let query=connection.query(sql,(err,rows)=>{
-        if(err) throw err;
-        res.render('table',{
-            title: 'testing the mysql crud',
-            users: rows
-        })
-    })
-})
+// app.get('/mysql',(req,res)=>{
+//     let sql="Select * From Users"
+//     let query=connection.query(sql,(err,rows)=>{
+//         if(err) throw err;
+//         res.render('table',{
+//             title: 'testing the mysql crud',
+//             users: rows
+//         })
+//     })
+// })
 
 
 app.listen(port, () => console.log(`App is listening on url http://localhost:3000`))
