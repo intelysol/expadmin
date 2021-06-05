@@ -2,23 +2,23 @@ const express = require('express')
 const expressLayouts= require('express-ejs-layouts')
 const bodyParser=require('body-parser')
 const path=require('path')
-const mysql=require('mysql')
+// const mysql=require('mysql')
 const homeRoutes = require('./routes/home-routes')
 
 const app = express()
 const port = 3000
 
-const connection=mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'envdata'
-})
+// const connection=mysql.createConnection({
+//     host:'localhost',
+//     user:'root',
+//     password:'',
+//     database:'envdata'
+// })
 
-connection.connect(function(error){
-    if(!!error) console.log(error);
-    else console.log("Database Connected");
-})
+// connection.connect(function(error){
+//     if(!!error) console.log(error);
+//     else console.log("Database Connected");
+// })
 
 app.use(expressLayouts)
 app.set('view engine','ejs')

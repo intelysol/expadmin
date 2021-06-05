@@ -1,3 +1,17 @@
+const mysql=require('mysql')
+
+const connection=mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'',
+    database:'envdata'
+})
+
+connection.connect(function(error){
+    if(!!error) console.log(error);
+    else console.log("Database Connected");
+})
+
 const indexView=(req,res,next) =>{
     res.render('home');
 }
@@ -22,11 +36,15 @@ const empformView=(req,res,next)=>{
     res.render('empform');
 }
 
-const mysqlView=(req,res,next)=>{
+const useraddView=(req,res,next)=>{
+    res.render('useradd')
+}
+
+const userlstView=(req,res,next)=>{
     let sql="Select * From Users"
     let query=connection.query(sql,(err,rows)=>{
         if(err) throw err;
-        res.render('table',{
+        res.render('userlst',{
             title: 'testing the mysql crud',
             users: rows
         })
@@ -40,5 +58,6 @@ module.exports={
     profileView,
     tableView,
     empformView,
-    mysqlView
+    useraddView,
+    userlstView
 }
