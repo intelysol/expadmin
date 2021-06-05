@@ -1,3 +1,4 @@
+const md5hash=require('md5')
 const mysql=require('mysql')
 
 const connection=mysql.createConnection({
@@ -51,6 +52,16 @@ const userlstView=(req,res,next)=>{
     })
 }
 
+const userSave=(req,res,next)=>{
+    // console.log(req.body)
+    let data={name: req.body.name, email: req.body.email, password: md5hash(req.body.password)}
+    let sql="INSERT INTO users SET ?"
+    let query=connection.query(sql,data,(err,result)=>{
+        if(err) throw err;
+        res.redirect('/userlst')
+    })
+}
+
 module.exports={
     indexView,
     iconsView,
@@ -59,5 +70,6 @@ module.exports={
     tableView,
     empformView,
     useraddView,
-    userlstView
+    userlstView,
+    userSave
 }
