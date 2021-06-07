@@ -41,6 +41,18 @@ const useraddView=(req,res,next)=>{
     res.render('useradd')
 }
 
+const usereditView=(req,res,next)=>{
+    const userid=req.params.userid;
+    let sql="select * from users where id=" + userid
+    let query=connection.query(sql,(err,rows)=>{
+        if(err) throw err;
+        res.render('useredit',{
+            title: 'Edit user informatino',
+            user: rows[0]
+        })
+    })
+}
+
 const userlstView=(req,res,next)=>{
     let sql="Select * From Users"
     let query=connection.query(sql,(err,rows)=>{
@@ -62,6 +74,23 @@ const userSave=(req,res,next)=>{
     })
 }
 
+const userUpdate=(req,res,next)=>{
+    let data={name: req.body.name, email: req.body.email, password: req.body.password}
+    let sql="Update users set name='" + req.body.name + "', email='" + req.body.email + "', password='" + md5hash(req.body.password)  + "' where id=" + req.body.id
+    let query=connection.query(sql,(err,rows)=>{
+        if(err) throw err;
+        res.redirect('userlst')
+    })
+}
+
+const userDelete=(req,res,next)=>{
+    const userid=req.params.userid
+    let sql="Delete from users where id=" + userid
+    let query=connection.query(sql,(err,rows)=>{
+        if(err) throw err;
+        res.redirect('/userlst')
+    })
+}
 module.exports={
     indexView,
     iconsView,
@@ -70,6 +99,9 @@ module.exports={
     tableView,
     empformView,
     useraddView,
+    usereditView,
     userlstView,
-    userSave
+    userSave,
+    userUpdate,
+    userDelete
 }
